@@ -3,7 +3,20 @@
 <head>
   <meta charset="utf-8">
   <title>Fullscreen GIF</title>
-
+  <script>
+    // Merge this logic into your existing 404.html if you already have one.
+    // QR codes can only hold uppercase paths (e.g. HTTPS://CARSON.WEBSITE/S/ABC...),
+    // but GitHub Pages paths are case-sensitive, so those land here as a 404.
+    // Forward them to the real tool, which decodes them.
+    (function () {
+      var BASE = "/s/"; // keep in sync with BASE in s/main.js
+      var path = location.pathname;
+      if (path.toLowerCase().indexOf(BASE) === 0 && path.length > BASE.length) {
+        var payload = decodeURIComponent(path.slice(BASE.length));
+        location.replace(BASE + "?qr=" + encodeURIComponent(payload));
+      }
+    })();
+  </script>
   <style>
     html, body {
       margin: 0;
